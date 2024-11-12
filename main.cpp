@@ -13,20 +13,32 @@ int main() {
 
     CREATE_ACCOUNT account; // CREATE_ACCOUNT 객체 생성
 
-    // 기본 아이디와 비밀번호 값 설정
-    string newID = ""; // ID를 SignUP 함수 내에서 입력받도록 설정
-    string newPW = ""; // PW를 SignUP 함수 내에서 입력받도록 설정
-    string newName = "";
-    
+    string command;
 
-    // 회원가입 함수 호출
-    if (account.SignUP(db, newName, newID, newPW) != 0) {
-        std::cerr << "Failed to create account." << std::endl;
+    while (true) {
+		cout << "> ";
+		getline(cin, command);
+		if (command == "signin" || command == "si") {
+			int result = ca.SignIN(db);
+			if (result == 1) {
+				cout << "Login successfully" << endl;
+			}
+			else {
+				cout << "ID or Password is not correct" << endl;
+			}
+		}
+			
+		if (command == "signup" || command == "su") {
+			if (ca.SignUP(db)) {
+				if (ca.SignUP(db) == 0) {  // 회원가입 성공 시
+					cout << "Account created successfully." << endl;
+				}
+				else {
+					cout << "Failed to create account." << endl;
+				}
+			}
+		}
     }
-    else {
-        std::cout << "Account created successfully." << std::endl;
-    }
-
     sqlite3_close(db); // 데이터베이스 닫기
 	
 	return 0;
