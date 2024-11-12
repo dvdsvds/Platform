@@ -17,12 +17,17 @@ private:
 	std::string USERNAME;
 	std::string ID;
 	std::string PW;
+	std::string NEWUSERNAME;
+	std::string NEWID;
+	std::string NEWPW;
 public:
 	void initDataBase();
 	CREATE_ACCOUNT();
 	std::string sha256(const std::string& str);
-	int SignUP(sqlite3* db, const std::string& newName, const std::string& newID, const std::string& newPW);
-	int show(sqlite3* db, const std::string& ID);
-	void Signin(const std::string& ID, const std::string& PW);
+	int SignUP(sqlite3* db);
+	int SignIN(sqlite3* db);
+	int checkName(sqlite3* db, const std::string& name);
+	int checkID(sqlite3* db, const std::string& ID);
+	int checkPW(sqlite3* db, const std::string& PW);
 };
 #endif
